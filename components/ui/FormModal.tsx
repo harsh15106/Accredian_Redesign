@@ -26,13 +26,16 @@ export function FormModal({ isOpen, onClose }: FormModalProps) {
 
   useEffect(() => {
     if (isOpen) {
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
       const handleEsc = (e: KeyboardEvent) => {
         if (e.key === "Escape") onClose();
       };
       window.addEventListener("keydown", handleEsc);
+
       return () => {
-        document.body.style.overflow = "unset";
+        document.documentElement.style.overflow = "";
+        document.body.style.overflow = "";
         window.removeEventListener("keydown", handleEsc);
       };
     }

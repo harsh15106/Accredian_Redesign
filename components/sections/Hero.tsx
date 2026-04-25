@@ -52,9 +52,18 @@ export function Hero() {
           <div className="pt-4 md:pt-8">
             <motion.button
               onClick={() => setIsOpen(true)}
-              whileHover={{ scale: 1.05 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              animate={{ y: [0, -10, 0] }}
+              whileHover={{ scale: 1.05, y: 0 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              transition={{ 
+                y: { repeat: Infinity, duration: 4, ease: "easeInOut" },
+                type: "spring", 
+                stiffness: 400, 
+                damping: 17 
+              }}
               className="bg-transparent border-2 border-[#FEBD14] text-[#FEBD14] px-10 py-4 md:px-14 md:py-5 rounded-2xl font-bold text-lg md:text-xl hover:bg-[#FEBD14] hover:text-black transition-all duration-300 cursor-pointer shadow-[0_0_20px_rgba(254,189,20,0.1)] hover:shadow-[0_0_30px_rgba(254,189,20,0.3)]"
             >
               Enquire Now
