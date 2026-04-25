@@ -27,12 +27,6 @@ export function Navbar() {
       });
 
       setActiveSection(current);
-
-      if (current === "home") {
-        window.history.replaceState(null, "", "/");
-      } else {
-        window.history.replaceState(null, "", `/#${current}`);
-      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -41,18 +35,26 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      setIsMenuOpen(false);
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const mainLinks = [
-    { name: "Home", href: "/#home", id: "home" },
-    { name: "Stats", href: "/#stats", id: "stats" },
-    { name: "Clients", href: "/#clients", id: "clients" },
-    { name: "Accredian Edge", href: "/#edge", id: "edge" },
+    { name: "Home", id: "home" },
+    { name: "Stats", id: "stats" },
+    { name: "Clients", id: "clients" },
+    { name: "Accredian Edge", id: "edge" },
   ];
 
   const dropdownLinks = [
-    { name: "CAT", href: "/#cat", id: "cat" },
-    { name: "How It Works", href: "/#how-it-works", id: "how-it-works" },
-    { name: "Testimonials", href: "/#testimonials", id: "testimonials" },
-    { name: "FAQ", href: "/#faq", id: "faq" },
+    { name: "CAT", id: "cat" },
+    { name: "How It Works", id: "delivery" },
+    { name: "FAQ", id: "faq" },
+    { name: "Testimonials", id: "testimonials" },
   ];
 
   const allLinks = [...mainLinks, ...dropdownLinks];
@@ -65,20 +67,17 @@ export function Navbar() {
         <motion.div 
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          onClick={() => scrollToSection("home")}
+          className="cursor-pointer"
         >
-          <Link
-            href="/#home"
-            className="flex items-center cursor-pointer"
-          >
-            <Image 
-              src="/logos/accredian.png" 
-              alt="Accredian Logo" 
-              width={160} 
-              height={40} 
-              className="h-8 md:h-9 w-auto object-contain"
-              priority
-            />
-          </Link>
+          <Image 
+            src="/logos/accredian.png" 
+            alt="Accredian Logo" 
+            width={160} 
+            height={40} 
+            className="h-8 md:h-9 w-auto object-contain"
+            priority
+          />
         </motion.div>
 
         {/* Right Side */}
@@ -97,28 +96,25 @@ export function Navbar() {
                   key={link.name} 
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  onClick={() => scrollToSection(link.id)}
+                  className={`relative group pb-2 transition-all duration-300 cursor-pointer ${
+                    isActive ? "text-[#FEBD14]" : "text-silver hover:text-white"
+                  }`}
                 >
-                  <Link
-                    href={link.href}
-                    className={`relative group pb-2 transition-all duration-300 cursor-pointer ${
-                      isActive ? "text-[#FEBD14]" : "text-silver hover:text-white"
-                    }`}
-                  >
-                    {link.name}
+                  {link.name}
 
-                    {/* Smooth Underline */}
-                    <span
-                      className={`
-                        absolute left-0 bottom-[-6px] h-[2px] bg-[#FEBD14]
-                        transition-all duration-300 ease-in-out
-                        ${
-                          isActive
-                            ? "w-full opacity-100"
-                            : "w-0 opacity-0 group-hover:w-full group-hover:opacity-60"
-                        }
-                      `}
-                    />
-                  </Link>
+                  {/* Smooth Underline */}
+                  <span
+                    className={`
+                      absolute left-0 bottom-[-6px] h-[2px] bg-[#FEBD14]
+                      transition-all duration-300 ease-in-out
+                      ${
+                        isActive
+                          ? "w-full opacity-100"
+                          : "w-0 opacity-0 group-hover:w-full group-hover:opacity-60"
+                      }
+                    `}
+                  />
                 </motion.div>
               );
             })}
@@ -146,17 +142,16 @@ export function Navbar() {
                     const isActive = activeSection === link.id;
 
                     return (
-                      <Link
+                      <div
                         key={link.name}
-                        href={link.href}
-                        onClick={() => setIsMenuOpen(false)}
-                        className={`px-6 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 ${
+                        onClick={() => scrollToSection(link.id)}
+                        className={`px-6 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 cursor-pointer ${
                           isActive ? "text-[#FEBD14] bg-white/5" : "text-silver"
                         }`}
                         style={{ fontFamily: "var(--font-exo-2)" }}
                       >
                         {link.name}
-                      </Link>
+                      </div>
                     );
                   })}
                 </div>
@@ -166,17 +161,16 @@ export function Navbar() {
                   {dropdownLinks.map((link) => {
                     const isActive = activeSection === link.id;
                     return (
-                      <Link
+                      <div
                         key={link.name}
-                        href={link.href}
-                        onClick={() => setIsMenuOpen(false)}
-                        className={`px-6 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 ${
+                        onClick={() => scrollToSection(link.id)}
+                        className={`px-6 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 cursor-pointer ${
                           isActive ? "text-[#FEBD14] bg-white/5" : "text-silver hover:text-white"
                         }`}
                         style={{ fontFamily: "var(--font-exo-2)" }}
                       >
                         {link.name}
-                      </Link>
+                      </div>
                     );
                   })}
                 </div>

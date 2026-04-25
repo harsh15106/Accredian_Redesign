@@ -2,12 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Headphones } from "lucide-react";
-import { useState } from "react";
-import { FormModal } from "@/components/ui/FormModal";
+import { useModal } from "@/components/providers/ModalProvider";
 
 export function CTABanner() {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const { openModal } = useModal();
+  
   return (
     <section className="bg-black py-12 md:py-20 px-6">
       <motion.div 
@@ -34,7 +33,7 @@ export function CTABanner() {
 
           {/* Right Side: CTA Button */}
           <motion.button
-            onClick={() => setIsOpen(true)}
+            onClick={openModal}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             className="bg-[#FEBD14] text-black px-10 py-4 rounded-full font-bold text-lg border border-transparent hover:bg-white transition-all duration-300 whitespace-nowrap cursor-pointer"
@@ -43,7 +42,6 @@ export function CTABanner() {
           </motion.button>
         </div>
       </motion.div>
-      <FormModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </section>
   );
 }

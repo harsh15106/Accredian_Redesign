@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { LoadingScreen } from "@/components/animations/LoadingScreen";
 import { Hero } from "@/components/sections/Hero";
 import { Stats } from "@/components/sections/Stats";
@@ -25,35 +25,36 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-primary">
-      <LayoutGroup>
-        <AnimatePresence>
-          {!loadingComplete && (
-            <LoadingScreen key="loader" onComplete={() => setLoadingComplete(true)} />
-          )}
-        </AnimatePresence>
+      {/* Loader overlay — sits above everything at z-50 */}
+      <AnimatePresence>
+        {!loadingComplete && (
+          <LoadingScreen key="loader" onComplete={() => setLoadingComplete(true)} />
+        )}
+      </AnimatePresence>
+      
+      {/* Page content — always in DOM so loader can measure hero position */}
+      <div className="flex flex-col">
+        <Hero show={loadingComplete} />
         
-        <AnimatePresence>
-          {loadingComplete && (
-            <motion.div
-              key="content"
-              className="flex flex-col"
-            >
-              <Hero />
-              <Stats />
-              <ClientSection />
-              <EdgeSection />
-              <Features />
-              <CourseSegmentation />
-              <WhoShouldJoin />
-              <CATFramework />
-              <DeliveryResults />
-              <FAQSection />
-              <Testimonials />
-              <CTABanner />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </LayoutGroup>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: loadingComplete ? 1 : 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="flex flex-col"
+        >
+          <Stats />
+          <ClientSection />
+          <EdgeSection />
+          <Features />
+          <CourseSegmentation />
+          <WhoShouldJoin />
+          <CATFramework />
+          <DeliveryResults />
+          <FAQSection />
+          <Testimonials />
+          <CTABanner />
+        </motion.div>
+      </div>
     </main>
   );
 }

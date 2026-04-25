@@ -53,9 +53,11 @@ const SocialIcons = [
   },
 ];
 
-export function Footer() {
-  const [isOpen, setIsOpen] = useState(false);
+import { useModal } from "@/components/providers/ModalProvider";
 
+export function Footer() {
+  const { openModal } = useModal();
+  
   return (
     <footer className="bg-black border-t border-white/5 w-full pt-12 pb-8 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto flex flex-col">
@@ -65,7 +67,7 @@ export function Footer() {
           {/* LEFT: Branding Block */}
           <div className="flex flex-col items-center lg:items-start">
             <div className="flex flex-col items-center lg:items-start mb-4">
-              <Link href="/" className="flex items-center">
+              <div className="flex items-center">
                 <Image 
                   src="/logos/accredian.png" 
                   alt="Accredian Logo" 
@@ -74,7 +76,7 @@ export function Footer() {
                   className="h-10 md:h-12 w-auto object-contain"
                   priority
                 />
-              </Link>
+              </div>
             </div>
 
             {/* Social Icons (Repositioned below tagline) */}
@@ -95,7 +97,7 @@ export function Footer() {
           {/* RIGHT: Advisor CTA */}
           <div className="flex flex-col items-center lg:items-end">
             <motion.button 
-              onClick={() => setIsOpen(true)}
+              onClick={openModal}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
               className="bg-[#FEBD14] text-black px-10 py-4 rounded-full font-bold text-lg hover:bg-white transition-all duration-300 cursor-pointer whitespace-nowrap mb-2"
@@ -165,7 +167,6 @@ export function Footer() {
         </div>
 
       </div>
-      <FormModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </footer>
   );
 }

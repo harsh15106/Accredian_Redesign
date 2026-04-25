@@ -26,7 +26,7 @@ const steps = [
 
 export function DeliveryResults() {
   return (
-    <section className="bg-[#000000] py-24 md:py-32 px-6 relative border-t border-white/5">
+    <section className="bg-[#000000] py-24 md:py-32 px-6 relative border-t border-white/5" id="delivery">
       <div className="max-w-7xl mx-auto">
         {/* Heading Section */}
         <div className="text-center mb-16 md:mb-20">

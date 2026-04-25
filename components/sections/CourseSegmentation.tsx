@@ -27,7 +27,7 @@ export function CourseSegmentation() {
   ];
 
   return (
-    <section className="py-20 md:py-24 px-6 bg-black relative border-t border-white/5">
+    <section id="programs" className="py-20 md:py-24 px-6 bg-black relative border-t border-white/5">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         
         {/* Header */}

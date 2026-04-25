@@ -4,7 +4,8 @@
 
 This project is a clone of the Accredian Enterprise website built as part of a Full Stack Developer Intern assignment. The goal was to recreate the landing page with a clean UI, responsive design, reusable components, and basic API integration using modern web development practices.
 
-Live Demo: [Add your Vercel link here]
+Live Demo: https://accredian-clone-livid.vercel.app
+
 Repository: https://github.com/harsh15106/Accredian_Redesign
 
 ---
@@ -109,7 +110,6 @@ Repository: https://github.com/harsh15106/Accredian_Redesign
 ## Project Structure
 
 ```
-Accerdian_Full_Stack/
 ├── app/
 │   ├── api/leads/route.ts
 │   ├── layout.tsx
@@ -137,25 +137,19 @@ Accerdian_Full_Stack/
    git clone https://github.com/harsh15106/Accredian_Redesign.git
    ```
 
-2. Navigate to the project:
-
-   ```
-   cd Accerdian_Full_Stack
-   ```
-
-3. Install dependencies:
+2. Install dependencies:
 
    ```
    npm install
    ```
 
-4. Run the development server:
+3. Run the development server:
 
    ```
    npm run dev
    ```
 
-5. Open in browser:
+4. Open in browser:
 
    ```
    http://localhost:3000

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
 const ease: any = [0.25, 1, 0.5, 1];
@@ -62,7 +62,9 @@ const LetterN = ({ delay }: { delay: number }) => (
 // ---------- MAIN COMPONENT ----------
 
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<"drawing" | "crossfade">("drawing");
+  const [phase, setPhase] = useState<"drawing" | "crossfade" | "moving">("drawing");
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const [targetY, setTargetY] = useState(0);
 
   useEffect(() => {
     const scrollY = window.scrollY;
@@ -77,15 +79,30 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const originalBodyTop = body.style.top;
     const originalBodyWidth = body.style.width;
 
-    // LOCK SCROLL (perfect fix)
+    // LOCK SCROLL
     html.style.overflow = "hidden";
     body.style.overflow = "hidden";
     body.style.position = "fixed";
     body.style.top = `-${scrollY}px`;
     body.style.width = "100%";
 
+    // Phase 1: SVG draws (0 → 1.8s)
+    // Phase 2: Crossfade SVG → clean text (1.8s → 2.2s)
+    // Phase 3: Text moves up + bg fades (2.2s → 3.0s)
+    // Phase 4: Complete (3.0s)
     const t1 = setTimeout(() => setPhase("crossfade"), 1800);
-    const t2 = setTimeout(() => onComplete(), 2300);
+    const t2 = setTimeout(() => {
+      // Calculate where the hero title will be
+      const heroTitle = document.getElementById("hero-title-target");
+      if (heroTitle && textRef.current) {
+        const heroRect = heroTitle.getBoundingClientRect();
+        const loaderRect = textRef.current.getBoundingClientRect();
+        // Pure vertical offset (straight up, no horizontal)
+        setTargetY(heroRect.top - loaderRect.top);
+      }
+      setPhase("moving");
+    }, 2200);
+    const t3 = setTimeout(() => onComplete(), 3000);
 
     return () => {
       // RESTORE
@@ -99,21 +116,25 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
       clearTimeout(t1);
       clearTimeout(t2);
+      clearTimeout(t3);
     };
   }, [onComplete]);
 
   return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black overflow-hidden"
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden">
+      {/* Background (fades out during "moving" phase) */}
+      <motion.div
+        className="absolute inset-0 bg-black"
+        animate={{ opacity: phase === "moving" ? 0 : 1 }}
+        transition={{ duration: 0.8 }}
+      />
+
       <div className="relative flex items-center justify-center">
         {/* SVG Letters */}
         <motion.div
           className="flex gap-2 lg:gap-3 items-center text-silver"
-          animate={{ opacity: phase === "crossfade" ? 0 : 1 }}
-          transition={{ duration: 0.4 }}
+          animate={{ opacity: phase === "drawing" ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
         >
           <LetterA delay={0} />
           <LetterC delay={0.15} />
@@ -126,17 +147,26 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           <LetterN delay={1.2} />
         </motion.div>
 
-        {/* Final Text */}
-        <motion.h1
-          className="absolute inset-0 flex items-center justify-center text-silver font-medium tracking-[0.25em] text-5xl md:text-6xl lg:text-7xl uppercase"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: phase === "crossfade" ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
-          style={{ fontFamily: "var(--font-exo-2)" }}
-        >
-          ACCREDIAN
-        </motion.h1>
+        {/* Clean text — appears at crossfade, then moves straight up to hero position */}
+        {phase !== "drawing" && (
+          <motion.h1
+            ref={textRef}
+            className="absolute text-silver font-medium tracking-[0.15em] lg:tracking-[0.25em] text-4xl sm:text-6xl md:text-7xl lg:text-9xl uppercase"
+            style={{ fontFamily: "var(--font-exo-2)" }}
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: phase === "moving" ? 0 : 1,
+              y: phase === "moving" ? targetY : 0,
+            }}
+            transition={{
+              opacity: { duration: 0.4, delay: phase === "moving" ? 0.4 : 0 },
+              y: { type: "spring", stiffness: 120, damping: 25 },
+            }}
+          >
+            ACCREDIAN
+          </motion.h1>
+        )}
       </div>
-    </motion.div>
+    </div>
   );
 }

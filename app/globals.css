@@ -31,6 +31,10 @@ html, body {
   scroll-behavior: smooth;
 }
 
+section {
+  scroll-margin-top: 100px;
+}
+
 /* Cursor Pointer for all interactive elements */
 button, a, input, select, textarea, [role="button"] {
   cursor: pointer !important;

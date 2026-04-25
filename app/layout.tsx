@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 import { Toaster } from "react-hot-toast";
+import { ModalProvider } from "@/components/providers/ModalProvider";
 
 const exo2 = Exo_2({
   variable: "--font-exo-2",
@@ -25,9 +26,11 @@ export default function RootLayout({
     <html lang="en" className={`${exo2.variable} antialiased h-full scroll-smooth`}>
       <body className="min-h-full flex flex-col font-sans bg-primary text-text-primary">
         <Toaster position="top-center" reverseOrder={false} />
-        <Navbar />
-        {children}
-        <Footer />
+        <ModalProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </ModalProvider>
       </body>
     </html>
   );
