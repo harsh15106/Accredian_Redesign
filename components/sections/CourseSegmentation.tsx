@@ -7,22 +7,22 @@ export function CourseSegmentation() {
     {
       title: "Program Specific",
       desc: "Certificate, Executive, Post Graduate Certificate",
-      img: "/PROGRAM_SPECIFIC.png"
+      img: "/images/PROGRAM_SPECIFIC.png"
     },
     {
       title: "Industry Specific",
       desc: "IT, Healthcare, Retail, Finance, Education, Manufacturing",
-      img: "/INDUSTRY_SPECIFIC.png"
+      img: "/images/INDUSTRY_SPECIFIC.png"
     },
     {
       title: "Topic Specific",
       desc: "Machine Learning, Design, Analytics, Cybersecurity, Cloud",
-      img: "/TOPIC_SPECIFIC.png"
+      img: "/images/TOPIC_SPECIFIC.png"
     },
     {
       title: "Level Specific",
       desc: "Senior Leadership, Mid-Career Professionals, Freshers",
-      img: "/LEVEL_SPECIFIC.png"
+      img: "/images/LEVEL_SPECIFIC.png"
     }
   ];
 
@@ -37,7 +37,7 @@ export function CourseSegmentation() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold mb-4 text-silver"
+            className="text-3xl md:text-4xl font-bold mb-4 text-silver uppercase"
             style={{ fontFamily: "var(--font-exo-2)" }}
           >
             Tailored <span className="text-[#FEBD14]">Course Segmentation</span>
@@ -63,7 +63,7 @@ export function CourseSegmentation() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
             >
-              <div className="bg-[#111] border border-[rgba(255,255,255,0.08)] rounded-[16px] overflow-hidden transition-all duration-300 hover:-translate-y-[6px] hover:shadow-[0_0_25px_rgba(254,189,20,0.08)] group h-full flex flex-col">
+              <div className="bg-[#111] border border-[rgba(255,255,255,0.08)] rounded-[16px] overflow-hidden transition-all duration-300 hover:-translate-y-[6px] hover:shadow-[0_0_25px_rgba(254,189,20,0.08)] group h-full flex flex-col cursor-pointer">
                 <div className="w-full h-[200px] relative overflow-hidden bg-black/50">
                   <img 
                     src={card.img} 

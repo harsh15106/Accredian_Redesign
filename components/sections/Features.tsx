@@ -28,7 +28,7 @@ export function Features() {
             className="text-3xl md:text-4xl font-bold mb-4 tracking-widest text-silver uppercase"
             style={{ fontFamily: "var(--font-exo-2)" }}
           >
-            OUR <span className="text-[#FEBD14]">DOMAIN EXPERTISE</span>
+            Our <span className="text-[#FEBD14]">Domain Expertise</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

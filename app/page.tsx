@@ -2,17 +2,19 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { LoadingScreen } from "@/components/LoadingScreen";
-import { Hero } from "@/components/Hero";
-import { Stats } from "@/components/Stats";
-import { ClientSection } from "@/components/ClientSection";
-import { EdgeSection } from "@/components/EdgeSection";
-import { Features } from "@/components/Features";
-import { CourseSegmentation } from "@/components/CourseSegmentation";
-import { WhoShouldJoin } from "@/components/WhoShouldJoin";
-import { Benefits } from "@/components/Benefits";
-import { Testimonials } from "@/components/Testimonials";
-import { LeadCapture } from "@/components/LeadCapture";
+import { LoadingScreen } from "@/components/animations/LoadingScreen";
+import { Hero } from "@/components/sections/Hero";
+import { Stats } from "@/components/sections/Stats";
+import { ClientSection } from "@/components/sections/ClientSection";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { EdgeSection } from "@/components/sections/EdgeSection";
+import { Features } from "@/components/sections/Features";
+import { CourseSegmentation } from "@/components/sections/CourseSegmentation";
+import { WhoShouldJoin } from "@/components/sections/WhoShouldJoin";
+import { CATFramework } from "@/components/sections/CATFramework";
+import { DeliveryResults } from "@/components/sections/DeliveryResults";
+import { FAQSection } from "@/components/sections/FAQSection";
+import { CTABanner } from "@/components/sections/CTABanner";
 
 export default function Home() {
   const [loadingComplete, setLoadingComplete] = useState(false);
@@ -34,7 +36,7 @@ export default function Home() {
           {loadingComplete && (
             <motion.div
               key="content"
-              className="flex flex-col min-h-screen"
+              className="flex flex-col"
             >
               <Hero />
               <Stats />
@@ -43,9 +45,11 @@ export default function Home() {
               <Features />
               <CourseSegmentation />
               <WhoShouldJoin />
-              <Benefits />
+              <CATFramework />
+              <DeliveryResults />
+              <FAQSection />
               <Testimonials />
-              <LeadCapture />
+              <CTABanner />
             </motion.div>
           )}
         </AnimatePresence>

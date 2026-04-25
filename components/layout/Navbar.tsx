@@ -1,7 +1,8 @@
 "use client";
-
+import {motion} from 'framer-motion'
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 export function Navbar() {
@@ -11,9 +12,7 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll("section[id]");
-      // Use a small offset (navbar height ~80px) so active section
-      // switches as soon as the section top enters the viewport
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 120; // Offset for navbar height
 
       let current = "home";
 
@@ -29,7 +28,6 @@ export function Navbar() {
 
       setActiveSection(current);
 
-      // Fix: always build URL cleanly from "/" — avoids double-# bug
       if (current === "home") {
         window.history.replaceState(null, "", "/");
       } else {
@@ -38,7 +36,6 @@ export function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run once on mount to set correct initial state
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -52,10 +49,10 @@ export function Navbar() {
   ];
 
   const dropdownLinks = [
-    { name: "CAT", href: "/#cat" },
-    { name: "How It Works", href: "/#how-it-works" },
-    { name: "FAQs", href: "/#faqs" },
-    { name: "Testimonials", href: "/#testimonials" },
+    { name: "CAT", href: "/#cat", id: "cat" },
+    { name: "How It Works", href: "/#how-it-works", id: "how-it-works" },
+    { name: "Testimonials", href: "/#testimonials", id: "testimonials" },
+    { name: "FAQ", href: "/#faq", id: "faq" },
   ];
 
   const allLinks = [...mainLinks, ...dropdownLinks];
@@ -65,12 +62,24 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
 
         {/* Logo */}
-        <Link
-          href="/#home"
-          className="text-2xl font-bold tracking-widest text-text-primary"
+        <motion.div 
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          ACCREDIAN
-        </Link>
+          <Link
+            href="/#home"
+            className="flex items-center cursor-pointer"
+          >
+            <Image 
+              src="/logos/accredian.png" 
+              alt="Accredian Logo" 
+              width={160} 
+              height={40} 
+              className="h-8 md:h-9 w-auto object-contain"
+              priority
+            />
+          </Link>
+        </motion.div>
 
         {/* Right Side */}
         <div className="flex items-center gap-6 xl:gap-8">
@@ -84,41 +93,48 @@ export function Navbar() {
               const isActive = activeSection === link.id;
 
               return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={`relative group pb-2 transition-colors duration-300 ${
-                    isActive ? "text-white" : "text-silver hover:text-white"
-                  }`}
+                <motion.div 
+                  key={link.name} 
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  {link.name}
+                  <Link
+                    href={link.href}
+                    className={`relative group pb-2 transition-all duration-300 cursor-pointer ${
+                      isActive ? "text-[#FEBD14]" : "text-silver hover:text-white"
+                    }`}
+                  >
+                    {link.name}
 
-                  {/* Smooth White Underline */}
-                  <span
-                    className={`
-                      absolute left-0 bottom-[-6px] h-[2px] bg-white
-                      transition-all duration-300 ease-in-out
-                      ${
-                        isActive
-                          ? "w-full opacity-100"
-                          : "w-0 opacity-0 group-hover:w-full group-hover:opacity-60"
-                      }
-                    `}
-                  />
-                </Link>
+                    {/* Smooth Underline */}
+                    <span
+                      className={`
+                        absolute left-0 bottom-[-6px] h-[2px] bg-[#FEBD14]
+                        transition-all duration-300 ease-in-out
+                        ${
+                          isActive
+                            ? "w-full opacity-100"
+                            : "w-0 opacity-0 group-hover:w-full group-hover:opacity-60"
+                        }
+                      `}
+                    />
+                  </Link>
+                </motion.div>
               );
             })}
           </div>
 
           {/* Hamburger */}
           <div className="relative">
-            <button
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-silver hover:text-white transition-colors duration-300 p-1 flex items-center justify-center"
+              className="text-silver hover:text-white transition-colors duration-300 p-1 flex items-center justify-center cursor-pointer"
               aria-label="Toggle Menu"
             >
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+            </motion.button>
 
             {/* Dropdown */}
             {isMenuOpen && (
@@ -135,7 +151,7 @@ export function Navbar() {
                         href={link.href}
                         onClick={() => setIsMenuOpen(false)}
                         className={`px-6 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 ${
-                          isActive ? "text-white bg-white/5" : "text-silver"
+                          isActive ? "text-[#FEBD14] bg-white/5" : "text-silver"
                         }`}
                         style={{ fontFamily: "var(--font-exo-2)" }}
                       >
@@ -147,17 +163,22 @@ export function Navbar() {
 
                 {/* Desktop dropdown */}
                 <div className="hidden lg:flex flex-col">
-                  {dropdownLinks.map((link) => (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="px-6 py-3 text-base font-medium text-silver hover:text-white hover:bg-white/5 transition-all duration-300"
-                      style={{ fontFamily: "var(--font-exo-2)" }}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
+                  {dropdownLinks.map((link) => {
+                    const isActive = activeSection === link.id;
+                    return (
+                      <Link
+                        key={link.name}
+                        href={link.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`px-6 py-3 text-base font-medium transition-all duration-300 hover:bg-white/5 ${
+                          isActive ? "text-[#FEBD14] bg-white/5" : "text-silver hover:text-white"
+                        }`}
+                        style={{ fontFamily: "var(--font-exo-2)" }}
+                      >
+                        {link.name}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             )}

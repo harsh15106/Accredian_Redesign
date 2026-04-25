@@ -2,12 +2,12 @@ import Image from "next/image";
 
 export function ClientSection() {
   const clients = [
-    { name: "ADP", src: "/ADP.png" },
-    { name: "Bayer", src: "/BAYER.png" },
-    { name: "CRIF", src: "/CRIF.png" },
-    { name: "HCL", src: "/HCL.png" },
-    { name: "IBM", src: "/IBM.png" },
-    { name: "Reliance", src: "/Reliance.png" },
+    { name: "ADP", src: "/logos/ADP.png" },
+    { name: "Bayer", src: "/logos/BAYER.png" },
+    { name: "CRIF", src: "/logos/CRIF.png" },
+    { name: "HCL", src: "/logos/HCL.png" },
+    { name: "IBM", src: "/logos/IBM.png" },
+    { name: "Reliance", src: "/logos/Reliance.png" },
   ];
 
   return (

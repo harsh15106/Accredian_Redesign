@@ -1,36 +1,213 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Accredian Enterprise Page (Clone)
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is a clone of the Accredian Enterprise website built as part of a Full Stack Developer Intern assignment. The goal was to recreate the landing page with a clean UI, responsive design, reusable components, and basic API integration using modern web development practices.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Live Demo: [Add your Vercel link here]
+Repository: https://github.com/harsh15106/Accredian_Redesign
+
+---
+
+## Tech Stack
+
+* Next.js (App Router)
+* Tailwind CSS
+* TypeScript
+* Vercel (Deployment)
+
+---
+
+## Features
+
+### 1. Landing Page
+
+* Complete landing page with multiple sections:
+
+  * Hero Section
+  * Benefits
+  * CAT Framework
+  * Delivery Results
+  * Features
+  * FAQ Section
+  * Testimonials Carousel
+  * CTA Banner
+  * Footer
+* Clean and structured layout inspired by Accredian Enterprise website
+
+### 2. Responsive Design
+
+* Fully responsive across mobile, tablet, and desktop
+* Mobile-first approach
+* Optimized typography and spacing for smaller screens
+
+### 3. Component-Based Architecture
+
+* Reusable UI components:
+
+  * Button
+  * Card
+  * Input
+* Section-based modular components:
+
+  * Hero
+  * Navbar
+  * FAQSection
+  * Testimonials
+  * Footer
+* Clean separation of concerns
+
+### 4. Interactive UI
+
+* Smooth scrolling navigation
+* Animated transitions
+* Interactive FAQ tabs
+* Testimonials carousel with smooth sliding
+* Hover and click feedback (bouncy button effect)
+
+### 5. Form Integration
+
+* Enquiry form implemented as a reusable component
+* Triggered via "Enquire Now" button
+* Modal-based form popup
+* Toast-based validation feedback
+
+### 6. Form Validation (Client-side)
+
+* All fields required
+* Name and location accept only characters
+* Mobile number:
+
+  * Fixed +91 prefix
+  * Exactly 10 digits
+* Email:
+
+  * Converted to lowercase
+  * Must include '@'
+* Candidate count:
+
+  * Numbers only
+* Validation errors shown via toast notifications
+
+### 7. API Integration
+
+* Next.js API route for handling form submissions
+* Endpoint: `/api/leads`
+* Accepts POST requests with form data
+* Returns success/error response
+* Ready for future database or third-party integration
+
+### 8. UI Enhancements
+
+* Custom scrollbar 
+* Loading screen
+* Smooth animations
+* Dark theme with gold accents
+
+---
+
+## Project Structure
+
+```
+Accerdian_Full_Stack/
+├── app/
+│   ├── api/leads/route.ts
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── ui/
+│   ├── Hero.tsx
+│   ├── Navbar.tsx
+│   ├── FAQSection.tsx
+│   ├── Testimonials.tsx
+│   └── ...
+├── lib/
+├── public/
+├── styles/
+└── config files
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup Instructions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clone the repository:
 
-## Learn More
+   ```
+   git clone https://github.com/harsh15106/Accredian_Redesign.git
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Navigate to the project:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```
+   cd Accerdian_Full_Stack
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Install dependencies:
 
-## Deploy on Vercel
+   ```
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Run the development server:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```
+   npm run dev
+   ```
+
+5. Open in browser:
+
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+## Deployment
+
+* Deployed using Vercel
+* Automatic builds from GitHub
+
+---
+
+## AI Usage
+
+AI tools were used during development to accelerate productivity and improve code quality.
+
+### Where AI Helped
+
+* Generating UI structure and layout ideas
+* Debugging layout and responsiveness issues
+* Suggesting validation logic for forms
+* Improving animations and interactions
+
+### Manual Improvements
+
+* Refined UI to match theme (black, white, gold)
+* Fixed responsiveness issues manually
+* Customized animations and interactions
+* Structured folder architecture
+* Improved UX consistency across sections
+
+---
+
+## Improvements with More Time
+
+* Integrate database (MongoDB / PostgreSQL) for storing leads
+* Add authentication for admin dashboard
+* Optimize performance (lazy loading, image optimization)
+* Enhance animations using Framer Motion
+
+---
+
+## Conclusion
+
+This project demonstrates the ability to:
+
+* Build scalable and reusable UI components
+* Work with Next.js App Router
+* Implement responsive and modern UI design
+* Integrate APIs and handle form data
+* Use AI tools effectively while applying manual improvements
+
+---
