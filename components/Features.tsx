@@ -1,69 +1,70 @@
 "use client";
 
-import { Card } from "./ui/Card";
-import { Database, ShieldCheck, Zap, LineChart } from "lucide-react";
 import { motion } from "framer-motion";
-
-const features = [
-  {
-    title: "High-Speed Analytics",
-    description: "Process billions of rows in milliseconds with our custom-built distributed engine.",
-    icon: <Zap className="w-8 h-8 text-silver mb-4" />
-  },
-  {
-    title: "Enterprise Security",
-    description: "Bank-grade encryption and compliance with SOC2, GDPR, and HIPAA standards.",
-    icon: <ShieldCheck className="w-8 h-8 text-silver mb-4" />
-  },
-  {
-    title: "Seamless Integration",
-    description: "Connect to your existing data warehouses and pipelines with zero downtime.",
-    icon: <Database className="w-8 h-8 text-silver mb-4" />
-  },
-  {
-    title: "Predictive Insights",
-    description: "Leverage AI-driven models to forecast trends and optimize operations.",
-    icon: <LineChart className="w-8 h-8 text-silver mb-4" />
-  }
-];
+import { Lightbulb, Zap, Target, LineChart, Settings, Globe, Coins } from "lucide-react";
 
 export function Features() {
+  const domains = [
+    { title: "Product & Innovation Hub", icon: Lightbulb },
+    { title: "Gen-AI Mastery", icon: Zap },
+    { title: "Leadership Elevation", icon: Target },
+    { title: "Tech & Data Insights", icon: LineChart },
+    { title: "Operations Excellence", icon: Settings },
+    { title: "Digital Enterprise", icon: Globe },
+    { title: "Fintech Innovation Lab", icon: Coins },
+  ];
+
   return (
-    <section id="features" className="py-20 md:py-32 px-6 bg-primary overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">Core Capabilities</h2>
-          <p className="text-text-secondary max-w-2xl mx-auto">
-            Everything you need to scale your data infrastructure and drive actionable intelligence.
-          </p>
-        </motion.div>
+    <section id="expertise" className="py-20 md:py-32 px-6 bg-black relative border-t border-white/5">
+      <div className="max-w-5xl mx-auto flex flex-col items-center">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, idx) => (
+        {/* Header */}
+        <div className="text-center mb-16 lg:mb-20">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl md:text-4xl font-bold mb-4 tracking-widest text-silver uppercase"
+            style={{ fontFamily: "var(--font-exo-2)" }}
+          >
+            OUR <span className="text-[#FEBD14]">DOMAIN EXPERTISE</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-lg md:text-xl text-text-secondary"
+          >
+            <span className="text-[#FEBD14]">Specialized Programs</span> Designed to Fuel Innovation
+          </motion.p>
+        </div>
+
+        {/* 7-Card Grid Container */}
+        <div className="flex flex-wrap justify-center gap-6 w-full">
+          {domains.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="h-full"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
             >
-              <Card className="flex flex-col items-start h-full">
-                {feature.icon}
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed mt-2">
-                  {feature.description}
-                </p>
-              </Card>
+              <div className="bg-[#111] border border-[rgba(255,255,255,0.08)] rounded-[16px] p-[28px] transition-all duration-300 hover:-translate-y-[6px] hover:border-[#FEBD14] hover:shadow-[0_0_20px_rgba(254,189,20,0.08)] flex flex-col items-center text-center group h-full cursor-pointer">
+                <item.icon 
+                  className="text-[#FEBD14] w-[40px] h-[40px] mb-[16px] transition-transform duration-300 group-hover:scale-110" 
+                  strokeWidth={1.5} 
+                />
+                <h3 className="text-[17px] font-semibold text-white group-hover:text-[#FEBD14] transition-colors">
+                  {item.title}
+                </h3>
+              </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

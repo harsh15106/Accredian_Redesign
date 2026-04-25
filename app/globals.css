@@ -41,3 +41,7 @@ body {
 @utility text-glow {
   text-shadow: 0 0 10px rgba(217, 217, 217, 0.5);
 }
+
+html {
+  scroll-behavior: smooth;
+}
