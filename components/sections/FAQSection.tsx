@@ -82,8 +82,10 @@ export function FAQSection() {
           {categories.map((category) => {
             const isActive = activeTab === category;
             return (
-              <button
+              <motion.button
                 key={category}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 onClick={() => {
                   setActiveTab(category);
                   setOpenIndex(null);
@@ -100,7 +102,7 @@ export function FAQSection() {
                   />
                 )}
                 <span className="relative z-20">{category}</span>
-              </button>
+              </motion.button>
             );
           })}
         </div>
